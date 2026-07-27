@@ -13,6 +13,11 @@ app.get("/get-user", (req, res) => {
     return res.json({user})
 })
 
+
+app.get("/health", (req, res)=> {
+    return res.json({message: "good"})
+})
+
 app.listen(process.env.PORT, () => {
     console.log(`app is working on port ${process.env.PORT}`)
 })
