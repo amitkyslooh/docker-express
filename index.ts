@@ -16,6 +16,7 @@ app.get("/get-user", (req, res) => {
 
 app.get("/health", (req, res)=> {
     return res.json({message: "good"})
+
 })
 
 app.listen(process.env.PORT, () => {
