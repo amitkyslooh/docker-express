@@ -19,6 +19,16 @@ app.get("/health", (req, res)=> {
 
 })
 
+app.get("/saymyname", (req, res) => {
+    const name = req.query.yournameis;
+
+    if(name == "amit") {
+        return res.json({message: "You are good damm right"})
+    }
+
+    return res.json({message: "try again buddy"})
+})
+
 app.listen(process.env.PORT, () => {
     console.log(`app is working on port ${process.env.PORT}`)
 })
