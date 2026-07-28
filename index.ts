@@ -1,7 +1,9 @@
 import express from "express";
-
+import { SQL } from "bun"
 
 const app = express();
+
+const sql = new SQL(process.env.DATABASE_URL!)
 
 
 app.get("/get-user", (req, res) => {
@@ -11,6 +13,18 @@ app.get("/get-user", (req, res) => {
         gender: "Male"
     }
     return res.json({user})
+});
+
+app.get("/db-user",  async (req, res) => {
+    try {
+        const user = await sql`SELECT * FROM users`;
+
+        console.log(user);
+        return res.json({user});
+
+    } catch (err) {
+        console.log("something went wrong", err)
+    }
 })
 
 

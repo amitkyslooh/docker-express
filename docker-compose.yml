@@ -1,0 +1,33 @@
+name: express-postgres-docker
+
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: postgres-db
+    restart: always
+    environment:
+      POSTGRES_USER: amitkys
+      POSTGRES_PASSWORD: kys
+      POSTGRES_DB: test_express
+    ports: 
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+  
+
+  app:
+    image: loohhostels/docker-express:latest
+    build: .
+    container_name: docker-express
+    restart: always
+    ports: 
+      - "3000:3000"
+    environment:
+      PORTS: 3000
+      DATABASE_URL: "postgresql://amitkys:kys@db:5432/test_express"
+    depends_on:
+      - db
+
+volumes:
+  pgdata:
+    

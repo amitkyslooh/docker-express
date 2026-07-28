@@ -34,4 +34,21 @@ jobs:
         tags: |
           loohhostels/docker-express:latest
           loohhostels/docker-express:${{ env.SHORT_SHA }}
+  
+
+  deploy: 
+    needs: docker
+    runs-on: ubuntu-latest
+    steps:
+      - name: ssh key to server
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          script: |
+            cd /home/user/express-postgres-docker
+            git pull
+            docker compose pull
+            docker compose up -d --remove-orphans
       
