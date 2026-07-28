@@ -1,6 +1,8 @@
 import express from "express";
 import { SQL } from "bun"
 
+
+
 const app = express();
 
 const sql = new SQL(process.env.DATABASE_URL!)
